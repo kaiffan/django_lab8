@@ -1,0 +1,57 @@
+{% extends "main_page.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link href="{% static "css/table_style.css" %}" rel="stylesheet">
+</head>
+<body>
+
+{% block unsubscribe %}
+    <h1>Add user form</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <h2>Login</h2>
+        {% include 'messages.html' %}
+            {{ form }}
+        <button type="submit">Отправить запрос</button>
+    </form>
+
+
+    <h1>All users</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+        {% for user in all_users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <h1>All users</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Subscriber</th>
+            <th>Subscribed to</th>
+        </tr>
+        {% for user in all_subs %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.subscriber.id }}</td>
+                <td>{{ user.subscribed_to.id }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+</body>
+</html>
